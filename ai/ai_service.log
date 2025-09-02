@@ -1,0 +1,216 @@
+2025-08-20 21:25:25,006 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-20 21:25:25,025 - apscheduler.scheduler - INFO - Added job "BloodInventoryMonitor.check_inventory_levels" to job store "default"
+2025-08-20 21:25:25,025 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-20 21:25:25,052 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.6.226:5000
+2025-08-20 21:25:25,053 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-20 21:26:04,901 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:26:04] "GET /api/status HTTP/1.1" 200 -
+2025-08-20 21:26:05,005 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:26:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-08-20 21:26:17,510 - werkzeug - INFO - 192.168.6.226 - - [20/Aug/2025 21:26:17] "[33mGET / HTTP/1.1[0m" 404 -
+2025-08-20 21:26:17,655 - werkzeug - INFO - 192.168.6.226 - - [20/Aug/2025 21:26:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-08-20 21:32:26,937 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:32:26] "[33mGET / HTTP/1.1[0m" 404 -
+2025-08-20 21:32:27,019 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:32:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-08-20 21:33:54,132 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-20 21:33:54,133 - apscheduler.scheduler - INFO - Added job "BloodInventoryMonitor.check_inventory_levels" to job store "default"
+2025-08-20 21:33:54,133 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-20 21:33:54,143 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.6.226:5000
+2025-08-20 21:33:54,143 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-20 21:33:58,135 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:33:58] "[33mGET / HTTP/1.1[0m" 404 -
+2025-08-20 21:35:36,511 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-20 21:35:36,512 - apscheduler.scheduler - INFO - Added job "BloodInventoryMonitor.check_inventory_levels" to job store "default"
+2025-08-20 21:35:36,512 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-20 21:35:36,530 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.6.226:5000
+2025-08-20 21:35:36,531 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-20 21:35:41,984 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:35:41] "GET / HTTP/1.1" 200 -
+2025-08-20 21:35:55,682 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:35:55] "GET /api/status HTTP/1.1" 200 -
+2025-08-20 21:36:03,838 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:36:03] "GET / HTTP/1.1" 200 -
+2025-08-20 21:36:10,309 - __main__.BloodInventoryMonitor - INFO - Predicting usage for hospital 1, blood type A+, next 7 days
+2025-08-20 21:36:10,389 - __main__.BloodInventoryMonitor - ERROR - Error predicting usage: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'usage\n                FROM blood_usage\n                WHERE hospital_id = 1 ...' at line 1")
+2025-08-20 21:36:10,391 - __main__ - ERROR - Error predicting usage: 'dates'
+2025-08-20 21:36:10,392 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:36:10] "[35m[1mGET /api/predict/usage/1/A+ HTTP/1.1[0m" 500 -
+2025-08-20 21:36:18,465 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 21:36:18] "GET / HTTP/1.1" 200 -
+2025-08-20 22:11:24,782 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:11:24] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:37,162 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:37] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:39,580 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:39] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:40,294 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:40] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:40,651 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:40] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:41,012 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:41] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:41,323 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:41] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:41,601 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:41] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:41,927 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:41] "GET / HTTP/1.1" 200 -
+2025-08-20 22:31:43,409 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 22:31:43] "GET / HTTP/1.1" 200 -
+2025-08-20 22:35:36,522 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-20 22:35:36 CEST)" (scheduled at 2025-08-20 22:35:36.511785+02:00)
+2025-08-20 22:35:36,523 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-20 22:35:36,525 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-20 22:35:36,525 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-20 22:35:36,525 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-20 23:35:36 CEST)" executed successfully
+2025-08-20 23:05:11,624 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:05:11] "GET / HTTP/1.1" 200 -
+2025-08-20 23:05:12,157 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:05:12] "GET / HTTP/1.1" 200 -
+2025-08-20 23:05:26,340 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 23:05:26] "GET / HTTP/1.1" 200 -
+2025-08-21 08:22:08,161 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-21 08:22:08,163 - apscheduler.scheduler - INFO - Added job "BloodInventoryMonitor.check_inventory_levels" to job store "default"
+2025-08-21 08:22:08,163 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-21 08:22:08,178 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2025-08-21 08:22:08,178 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-21 08:22:36,112 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 08:22:36] "GET / HTTP/1.1" 200 -
+2025-08-21 09:22:08,179 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 09:22:08 CEST)" (scheduled at 2025-08-21 09:22:08.161542+02:00)
+2025-08-21 09:22:08,182 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 09:22:08,183 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 09:22:08,184 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 09:22:08,185 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 10:22:08 CEST)" executed successfully
+2025-08-21 10:22:08,181 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 11:22:08 CEST)" (scheduled at 2025-08-21 10:22:08.161542+02:00)
+2025-08-21 10:22:08,183 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 10:22:08,183 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 10:22:08,186 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 10:22:08,186 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 11:22:08 CEST)" executed successfully
+2025-08-21 11:22:08,183 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 12:22:08 CEST)" (scheduled at 2025-08-21 11:22:08.161542+02:00)
+2025-08-21 11:22:08,186 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 11:22:08,186 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 11:22:08,187 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 11:22:08,187 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 12:22:08 CEST)" executed successfully
+2025-08-21 12:22:08,171 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 13:22:08 CEST)" (scheduled at 2025-08-21 12:22:08.161542+02:00)
+2025-08-21 12:22:08,176 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 12:22:08,176 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 12:22:08,177 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 12:22:08,178 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 13:22:08 CEST)" executed successfully
+2025-08-21 13:22:08,194 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 14:22:08 CEST)" (scheduled at 2025-08-21 13:22:08.161542+02:00)
+2025-08-21 13:22:08,200 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 13:22:08,203 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 13:22:08,204 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 13:22:08,205 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 14:22:08 CEST)" executed successfully
+2025-08-21 14:22:08,200 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 15:22:08 CEST)" (scheduled at 2025-08-21 14:22:08.161542+02:00)
+2025-08-21 14:22:08,203 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 14:22:08,204 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 14:22:08,205 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 14:22:08,205 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 15:22:08 CEST)" executed successfully
+2025-08-21 14:48:52,132 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 14:48:52] "GET /api/status HTTP/1.1" 200 -
+2025-08-21 14:48:58,119 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 14:48:58] "[33mGET /api/predictions/{hospital_id} HTTP/1.1[0m" 404 -
+2025-08-21 15:22:08,199 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 16:22:08 CEST)" (scheduled at 2025-08-21 15:22:08.161542+02:00)
+2025-08-21 15:22:08,200 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 15:22:08,200 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 15:22:08,201 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 15:22:08,201 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 16:22:08 CEST)" executed successfully
+2025-08-21 16:22:08,222 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 17:22:08 CEST)" (scheduled at 2025-08-21 16:22:08.161542+02:00)
+2025-08-21 16:22:08,231 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-21 16:22:08,232 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-21 16:22:08,236 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-21 16:22:08,236 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 17:22:08 CEST)" executed successfully
+2025-08-21 17:45:51,322 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 18:22:08 CEST)" was missed by 0:23:43.159599
+2025-08-21 18:23:47,164 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 19:22:08 CEST)" was missed by 0:01:38.999038
+2025-08-21 19:25:17,766 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 20:22:08 CEST)" was missed by 0:03:09.604628
+2025-08-21 20:03:34,856 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:03:34] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:03:35,808 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:03:35] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:03:41,531 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:03:41] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:05:18,381 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:05:18] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:05:32,628 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:05:32] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:05:41,867 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:05:41] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:05:45,581 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:05:45] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:10:19,095 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:10:19] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:11:01,928 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:01] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:11:36,739 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:11:36] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:12:52,293 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:12:52] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-21 20:23:35,797 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-21 21:22:08 CEST)" was missed by 0:01:27.634617
+2025-08-21 20:23:38,719 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 20:23:38] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:22:09,785 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:09] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:22:12,144 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:12] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:22:13,392 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:13] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:22:14,217 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:14] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:22:18,108 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:18] "GET / HTTP/1.1" 200 -
+2025-08-22 09:22:19,176 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:19] "GET / HTTP/1.1" 200 -
+2025-08-22 09:22:24,939 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:24] "GET / HTTP/1.1" 200 -
+2025-08-22 09:22:28,628 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:28] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:22:43,166 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:22:43] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 09:23:22,962 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:23:22] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 10:01:16,679 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 10:22:08 CEST)" was missed by 0:39:08.514986
+2025-08-22 10:22:08,188 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 11:22:08 CEST)" (scheduled at 2025-08-22 10:22:08.161542+02:00)
+2025-08-22 10:22:08,193 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-22 10:22:08,197 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-22 10:22:08,200 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-22 10:22:08,203 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 11:22:08 CEST)" executed successfully
+2025-08-22 11:22:08,184 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 12:22:08 CEST)" (scheduled at 2025-08-22 11:22:08.161542+02:00)
+2025-08-22 11:22:08,188 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-22 11:22:08,188 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-22 11:22:08,190 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-22 11:22:08,191 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 12:22:08 CEST)" executed successfully
+2025-08-22 11:22:42,033 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 11:22:42] "GET / HTTP/1.1" 200 -
+2025-08-22 11:24:13,331 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 11:24:13] "GET / HTTP/1.1" 200 -
+2025-08-22 12:55:11,357 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 13:22:08 CEST)" was missed by 0:33:03.195952
+2025-08-22 13:22:08,186 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 14:22:08 CEST)" (scheduled at 2025-08-22 13:22:08.161542+02:00)
+2025-08-22 13:22:08,207 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-22 13:22:08,207 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-22 13:22:08,207 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-22 13:22:08,212 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 14:22:08 CEST)" executed successfully
+2025-08-22 14:29:01,725 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 15:22:08 CEST)" was missed by 0:06:53.563645
+2025-08-22 15:40:58,396 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 16:22:08 CEST)" was missed by 0:18:50.234563
+2025-08-22 15:49:56,513 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:49:56] "GET / HTTP/1.1" 200 -
+2025-08-22 16:22:08,184 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 17:22:08 CEST)" (scheduled at 2025-08-22 16:22:08.161542+02:00)
+2025-08-22 16:22:08,186 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-22 16:22:08,188 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-22 16:22:08,189 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-22 16:22:08,189 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 17:22:08 CEST)" executed successfully
+2025-08-22 16:38:07,871 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:38:07] "GET / HTTP/1.1" 200 -
+2025-08-22 16:38:59,152 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:38:59] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 16:39:12,732 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:39:12] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 16:41:53,815 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:41:53] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-22 17:22:08,192 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 18:22:08 CEST)" (scheduled at 2025-08-22 17:22:08.161542+02:00)
+2025-08-22 17:22:08,192 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-22 17:22:08,192 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-22 17:22:08,197 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-22 17:22:08,197 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 18:22:08 CEST)" executed successfully
+2025-08-22 17:39:23,231 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 17:39:23] "GET /api/status HTTP/1.1" 200 -
+2025-08-22 17:39:28,067 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 17:39:28] "GET / HTTP/1.1" 200 -
+2025-08-22 17:39:31,452 - __main__.BloodInventoryMonitor - INFO - Predicting usage for hospital 1, blood type A+, next 7 days
+2025-08-22 17:39:31,629 - __main__.BloodInventoryMonitor - ERROR - Error predicting usage: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'usage\n                FROM blood_usage\n                WHERE hospital_id = 1 ...' at line 1")
+2025-08-22 17:39:31,645 - __main__ - ERROR - Error predicting usage: 'dates'
+2025-08-22 17:39:31,647 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 17:39:31] "[35m[1mGET /api/predict/usage/1/A+ HTTP/1.1[0m" 500 -
+2025-08-22 17:39:36,912 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 17:39:36] "GET / HTTP/1.1" 200 -
+2025-08-22 17:39:44,166 - __main__.BloodInventoryMonitor - INFO - Predicting usage for hospital 1, blood type A+, next 7 days
+2025-08-22 17:39:44,171 - __main__.BloodInventoryMonitor - ERROR - Error predicting usage: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'usage\n                FROM blood_usage\n                WHERE hospital_id = 1 ...' at line 1")
+2025-08-22 17:39:44,171 - __main__ - ERROR - Error predicting usage: 'dates'
+2025-08-22 17:39:44,173 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 17:39:44] "[35m[1mGET /api/predict/usage/1/A+ HTTP/1.1[0m" 500 -
+2025-08-22 18:22:08,183 - apscheduler.executors.default - INFO - Running job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 19:22:08 CEST)" (scheduled at 2025-08-22 18:22:08.161542+02:00)
+2025-08-22 18:22:08,203 - __main__.BloodInventoryMonitor - INFO - Checking inventory levels
+2025-08-22 18:22:08,203 - __main__.BloodInventoryMonitor - INFO - Checking hospital inventory
+2025-08-22 18:22:08,205 - __main__.BloodInventoryMonitor - ERROR - Error checking inventory levels: 'NoneType' object has no attribute 'cursor'
+2025-08-22 18:22:08,214 - apscheduler.executors.default - INFO - Job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 19:22:08 CEST)" executed successfully
+2025-08-22 19:39:59,262 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-22 20:22:08 CEST)" was missed by 0:17:51.097195
+2025-08-22 20:07:05,762 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 20:07:05] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 08:48:49,901 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 09:22:08 CEST)" was missed by 0:26:41.736325
+2025-08-23 09:06:59,971 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:06:59] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 09:07:08,362 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:07:08] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 09:07:23,762 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:07:23] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 09:09:24,345 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:09:24] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 09:09:38,955 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:09:38] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 09:11:00,486 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:11:00] "[33mGET /api/donor/suggestions/2/AB+ HTTP/1.1[0m" 404 -
+2025-08-23 09:32:51,062 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 10:22:08 CEST)" was missed by 0:10:42.900555
+2025-08-23 09:48:59,425 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:48:59] "GET /api/status HTTP/1.1" 200 -
+2025-08-23 09:49:39,106 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:49:39] "GET / HTTP/1.1" 200 -
+2025-08-23 09:50:06,281 - __main__.BloodInventoryMonitor - INFO - Predicting usage for hospital 1, blood type A+, next 7 days
+2025-08-23 09:50:06,294 - __main__.BloodInventoryMonitor - ERROR - Error predicting usage: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'usage\n                FROM blood_usage\n                WHERE hospital_id = 1 ...' at line 1")
+2025-08-23 09:50:06,294 - __main__ - ERROR - Error predicting usage: 'dates'
+2025-08-23 09:50:06,296 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:50:06] "[35m[1mGET /api/predict/usage/1/A+ HTTP/1.1[0m" 500 -
+2025-08-23 09:51:11,709 - __main__.BloodInventoryMonitor - INFO - Predicting usage for hospital 1, blood type A+, next 7 days
+2025-08-23 09:51:11,713 - __main__.BloodInventoryMonitor - ERROR - Error predicting usage: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'usage\n                FROM blood_usage\n                WHERE hospital_id = 1 ...' at line 1")
+2025-08-23 09:51:11,713 - __main__ - ERROR - Error predicting usage: 'dates'
+2025-08-23 09:51:11,714 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:51:11] "[35m[1mGET /api/predict/usage/1/A+ HTTP/1.1[0m" 500 -
+2025-08-23 09:51:16,392 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:51:16] "[33mGET /api/predict HTTP/1.1[0m" 404 -
+2025-08-23 09:51:24,568 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:51:24] "GET /api/status HTTP/1.1" 200 -
+2025-08-23 09:51:28,779 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:51:28] "[33mGET /api/ HTTP/1.1[0m" 404 -
+2025-08-23 09:51:32,582 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:51:32] "GET / HTTP/1.1" 200 -
+2025-08-23 09:52:35,958 - werkzeug - INFO - 127.0.0.1 - - [23/Aug/2025 09:52:35] "GET /api/status HTTP/1.1" 200 -
+2025-08-23 10:39:02,972 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 11:22:08 CEST)" was missed by 0:16:54.811236
+2025-08-23 11:32:54,973 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 12:22:08 CEST)" was missed by 0:10:46.812081
+2025-08-23 12:26:16,314 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 13:22:08 CEST)" was missed by 0:04:08.149940
+2025-08-23 13:22:28,668 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 14:22:08 CEST)" was missed by 0:00:20.491673
+2025-08-23 14:22:40,888 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 15:22:08 CEST)" was missed by 0:00:32.723032
