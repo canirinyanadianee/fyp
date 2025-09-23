@@ -341,4 +341,34 @@ function get_hospital_stats($hospital_id, $conn) {
     
     return $stats;
 }
+
+/**
+ * Convert a timestamp to a human-readable time ago format
+ * 
+ * @param string $datetime The datetime string (format: Y-m-d H:i:s)
+ * @return string Formatted time ago string
+ */
+function timeAgo($datetime) {
+    $time = strtotime($datetime);
+    $time_difference = time() - $time;
+
+    if($time_difference < 1) { return 'just now'; }
+    $condition = [
+        12 * 30 * 24 * 60 * 60  =>  'year',
+        30 * 24 * 60 * 60       =>  'month',
+        24 * 60 * 60            =>  'day',
+        60 * 60                 =>  'hour',
+        60                      =>  'minute',
+        1                       =>  'second'
+    ];
+
+    foreach($condition as $secs => $str) {
+        $d = $time_difference / $secs;
+        if($d >= 1) {
+            $t = round($d);
+            return $t . ' ' . $str . ($t > 1 ? 's' : '') . ' ago';
+        }
+    }
+}
+
 ?>

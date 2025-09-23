@@ -303,23 +303,12 @@ $chart_data = [
                     AI Blood Management System | Hospital
                 </a>
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-tachometer-alt me-1"></i>
-                        Dashboard
-                    </a>
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-tint me-1"></i>
-                        Blood
-                    </a>
-                    <a class="nav-link" href="requests.php">
-                        <i class="fas fa-clipboard-list me-1"></i>
-                        Requests
-                    </a>
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-chart-line me-1"></i>
-                        Predictions
-                    </a>
-                    <a class="nav-link" href="#">
+                <li class="nav-item"><a class="nav-link" href="inventory.php">Available Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="blood_requests.php">Blood Requests</a></li>
+                  
+                    <li class="nav-item"><a class="nav-link" href="transfers.php">Transfer History</a></li>
+                   
+                    <a class="nav-link" href="nearby_bloodbanks.php">
                         <i class="fas fa-hospital me-1"></i>
                         Blood Banks
                     </a>
@@ -366,14 +355,15 @@ $chart_data = [
                             <i class="fas fa-file-alt"></i>
                             Usage Reports
                         </a>
-                        <a class="nav-link" href="ai_predictions.php">
-                            <i class="fas fa-robot"></i>
-                            AI Predictions
-                        </a>
                         <a class="nav-link" href="nearby_bloodbanks.php">
                             <i class="fas fa-map-marker-alt"></i>
                             Nearby Blood Banks
                         </a>
+                        <a class="nav-link" href="ai_predictions.php">
+                            <i class="fas fa-robot"></i>
+                            AI Predictions
+                        </a>
+                      
                         <a class="nav-link" href="staff_management.php">
                             <i class="fas fa-users"></i>
                             Staff Management

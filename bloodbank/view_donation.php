@@ -66,6 +66,7 @@ $donation = $result->fetch_assoc();
 // Include header
 $page_title = "View Donation";
 include_once '../includes/admin_header.php';
+include __DIR__ . '/includes/header.php';
 ?>
 
 <div class="container py-4">

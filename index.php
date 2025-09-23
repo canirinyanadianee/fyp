@@ -17,11 +17,13 @@ require_once 'includes/config.php';
     <!-- Custom CSS -->
     <style id="theme-style">
         .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            background-image: url('4.jpg');
             min-height: 100vh;
+            min-width:100vh;
             display: flex;
             align-items: center;
-            color: white;
+            color: black;
         }
         .feature-card {
             transition: transform 0.3s ease;

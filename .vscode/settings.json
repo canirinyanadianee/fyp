@@ -1,0 +1,15 @@
+{
+  "files.exclude": {
+    "**/flutter/**": true
+  },
+  "search.exclude": {
+    "**/flutter/**": true
+  },
+  "files.watcherExclude": {
+    "**/flutter/**": true
+  },
+  "dart.analysisExcludedFolders": [
+    "c:/xampp/htdocs/fyp1/flutter"
+  ],
+  "explorer.excludeGitIgnored": true
+}

@@ -10,7 +10,16 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'donor') {
 $user_id = $_SESSION['user_id'];
 $donor = $conn->query("SELECT * FROM donors WHERE user_id = $user_id")->fetch_assoc();
 $donor_id = $donor ? $donor['id'] : 0;
-$notifications = $conn->query("SELECT * FROM ai_notifications WHERE entity_type = 'donor' AND entity_id = $donor_id ORDER BY created_at DESC");
+// Only show approved or sent notifications. For backward compatibility, also include rows with NULL status.
+$stmt = $conn->prepare("SELECT * FROM ai_notifications 
+                        WHERE entity_type = 'donor' 
+                          AND entity_id = ?
+                          AND (status IN ('approved','sent') OR status IS NULL)
+                        ORDER BY created_at DESC");
+$stmt->bind_param('i', $donor_id);
+$stmt->execute();
+$notifications = $stmt->get_result();
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -42,7 +51,16 @@ $notifications = $conn->query("SELECT * FROM ai_notifications WHERE entity_type 
 		<?php if ($notifications && $notifications->num_rows > 0):
 			while($n = $notifications->fetch_assoc()): ?>
 			<li class='list-group-item d-flex justify-content-between align-items-center'>
-				<?php echo htmlspecialchars($n['message']); ?>
+				<div>
+					<?php echo htmlspecialchars($n['message']); ?>
+					<?php 
+					  $st = $n['status'] ?? null; 
+					  if ($st) {
+					    $cls = ($st==='approved') ? 'bg-success' : (($st==='sent') ? 'bg-primary' : 'bg-secondary');
+					    echo " <span class='badge $cls ms-2'>" . ucfirst($st) . "</span>";
+					  }
+					?>
+				</div>
 				<span class='badge bg-secondary'><?php echo date('M d, Y', strtotime($n['created_at'])); ?></span>
 			</li>
 		<?php endwhile; else: ?>

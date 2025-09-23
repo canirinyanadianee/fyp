@@ -17,6 +17,7 @@ $blood_bank_id = $bank['id'];
 
 // Get unique donors who have donated to this blood bank
 $donors = $conn->query("SELECT d.* FROM donors d JOIN blood_donations bd ON d.id = bd.donor_id WHERE bd.blood_bank_id = $blood_bank_id GROUP BY d.id ORDER BY d.first_name, d.last_name");
+include __DIR__ . '/includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -25,7 +26,21 @@ $donors = $conn->query("SELECT d.* FROM donors d JOIN blood_donations bd ON d.id
     <title>View Donors - <?php echo htmlspecialchars($bank['name']); ?> Blood Bank</title>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
+
+<style>
+.navbar-brand { font-weight: bold; letter-spacing: 1px; }
+            .footer { background: #23272b; color: #e0e0e0; padding: 2rem 0 1rem 0; margin-top: 3rem; }
+            .footer a { color: #e0e0e0; text-decoration: underline; }
+            body.dark-mode { background: #181a1b !important; color: #e0e0e0 !important; }
+            body.dark-mode .navbar, body.dark-mode .card, body.dark-mode .dashboard-card, body.dark-mode .feature-card, body.dark-mode .modal-content, body.dark-mode .footer { background-color: #23272b !important; color: #e0e0e0 !important; }
+            body.dark-mode .table, body.dark-mode .table-bordered, body.dark-mode .table-light { color: #e0e0e0 !important; background-color: #23272b !important; }
+            body.dark-mode .bg-white, body.dark-mode .bg-light, body.dark-mode .bg-primary, body.dark-mode .bg-info, body.dark-mode .bg-warning, body.dark-mode .bg-danger, body.dark-mode .bg-success, body.dark-mode .bg-secondary, body.dark-mode .bg-dark { background-color: #23272b !important; color: #e0e0e0 !important; }
+            body.dark-mode .btn, body.dark-mode .btn-primary, body.dark-mode .btn-outline-primary, body.dark-mode .btn-light, body.dark-mode .btn-outline-light { color: #e0e0e0 !important; }
+        </style>
 </head>
+<body>
+<!-- Navbar -->
+
 <body>
 <div class='container py-4'>
     <h2 class='mb-4'><i class='fas fa-users text-success me-2'></i>Donors for <?php echo htmlspecialchars($bank['name']); ?></h2>

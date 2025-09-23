@@ -3,7 +3,7 @@
 require_once '../includes/config.php';
 require_once '../includes/db.php';
 require_once '../includes/functions.php';
-
+// session_start();
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -64,10 +64,16 @@ try {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
         <style id="theme-style">
             body {
-                background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
-                min-height: 100vh;
+                background: linear-gradient(135deg,rgba(214, 215, 216, 0.94) 0%,rgba(215, 219, 222, 0.81) 100%);
+                /* background-image: url('image.png');
+                min-height: 100vh; */
+                background-image: url('image.jpg');
+               background-repeat: no-repeat;   /* Prevents repeating */
+               background-size: cover;         /* Makes image cover whole page */
+                background-position: center;    /* Centers the image */
             }
             .dashboard-hero {
+                background-image: url('image.jpg');
                 background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
                 border-radius: 1.5rem;
                 color: #fff;
@@ -85,6 +91,7 @@ try {
                 top: 2rem;
             }
             .dashboard-card {
+                background-image: url('image.jpg');
                 border-radius: 1rem;
                 box-shadow: 0 2px 12px rgba(0,0,0,0.07);
                 transition: transform 0.2s, box-shadow 0.2s;
@@ -114,6 +121,10 @@ try {
                 border-radius: 1rem;
                 background: #fff;
             }
+            .container {
+                background-image: url('image.jpg');
+                background:rgb(20, 37, 16);
+            }
             .quick-links .card:hover {
                 box-shadow: 0 4px 24px rgba(99,102,241,0.18);
                 background: #e0e7ff;
@@ -130,9 +141,10 @@ try {
         </style>
 </head>
 <body>
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top mb-4">
-            <div class="container">
+            
                 <a class="navbar-brand text-primary" href="index.php"><i class="fas fa-warehouse me-2"></i><?php echo htmlspecialchars($bank['name']); ?> Blood Bank</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavBB" aria-controls="navbarNavBB" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -141,6 +153,7 @@ try {
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="inventory.php"><i class="fas fa-warehouse me-1 text-info"></i>Manage Inventory</a></li>
                         <li class="nav-item"><a class="nav-link" href="donors.php"><i class="fas fa-users me-1 text-success"></i>View Donors</a></li>
+                        <li class="nav-item"><a class="nav-link" href="appointments.php"><i class="fas fa-users me-1 text-success"></i>View Appointments</a></li>
                         <li class="nav-item"><a class="nav-link" href="record_donation.php"><i class="fas fa-tint me-1 text-danger"></i>Record Donation</a></li>
                         <li class="nav-item"><a class="nav-link" href="transfers.php"><i class="fas fa-exchange-alt me-1 text-warning"></i>Process Transfers</a></li>
                         <li class="nav-item"><a class="nav-link" href="reports.php"><i class="fas fa-chart-bar me-1 text-primary"></i>Reports & Insights</a></li>
@@ -160,10 +173,12 @@ try {
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h1 class="display-5 fw-bold mb-2">Welcome to Your Blood Bank Dashboard</h1>
-                <p class="lead mb-0">Monitor inventory, process donations, and manage hospital requests with AI-powered insights and a beautiful, modern interface.</p>
+                <p class="lead mb-4">Monitor inventory, process donations, and manage hospital requests with AI-powered insights and a beautiful, modern interface.</p>
+                
+              
             </div>
             <div class="col-lg-4 text-end d-none d-lg-block">
-                <i class="fas fa-warehouse"></i>
+                <i class="fas fa-warehouse" style="font-size: 8rem; opacity: 0.1;"></i>
             </div>
         </div>
     </div>
@@ -195,6 +210,15 @@ try {
                 <h5>Unique Donors</h5>
                 <p class="display-6 fw-bold mb-0"><?php echo $donor_count; ?></p>
             </div>
+              <!-- Quick Action Buttons -->
+              <div class="card dashboard-card text-center p-3">
+                    <a href="inventory_dashboard.php" class="btn btn-primary btn-lg">
+                        <i class="fas fa-warehouse me-2"></i>View Inventory
+                    </a>
+        </div>
+      
+        
+      
         </div>
     </div>
     <!-- Inventory Table with Status -->

@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if (empty($password)) {
         $error = 'Please enter your password';
     } else {
-        // Check user credentials
+        // Check user credentials (select common columns; some schemas may not have is_active)
         $sql = "SELECT id, username, email, password, role, status FROM users WHERE username = ? OR email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $username, $username);
@@ -49,7 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result && $result->num_rows === 1) {
             $user = $result->fetch_assoc();
             
-            if ($user['status'] !== 'active') {
+            // Determine active flag across schemas:
+            // - If `status` column exists and is not 'active', block login
+            // - Otherwise, assume active (legacy schemas typically use is_active which we are not selecting)
+            $isActive = true;
+            if (array_key_exists('status', $user) && $user['status'] !== null) {
+                $isActive = ($user['status'] === 'active');
+            }
+
+            if (!$isActive) {
                 $error = 'Account is not active. Please contact administrator.';
             } else if (password_verify($password, $user['password'])) {
                 // Login successful
@@ -58,8 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role'];
                 
-                // Update last login
-                $conn->query("UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = " . $user['id']);
+                // Update last login (best-effort; ignore if column doesn't exist)
+                if ($conn instanceof mysqli) {
+                    @$conn->query("UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = " . (int)$user['id']);
+                }
                 
                 // Redirect based on role
                 switch ($user['role']) {

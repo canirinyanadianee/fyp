@@ -43,8 +43,7 @@ include '../includes/header.php';
                          (SELECT COUNT(*) FROM blood_donations WHERE donor_id = d.id) as donation_count,
                          (SELECT MAX(donation_date) FROM blood_donations WHERE donor_id = d.id) as last_donation
                          FROM donors d 
-                         WHERE d.blood_type = '$blood_type' 
-                         AND d.is_active = 1
+                         WHERE d.blood_type = '$blood_type'
                          ORDER BY last_donation ASC, donation_count ASC";
                 
                 $result = $conn->query($query);
@@ -68,7 +67,7 @@ include '../includes/header.php';
                     echo "</div>";
                 } else {
                     echo "<div class='alert alert-warning mt-3'>No matching donors found.</div>";
-                    echo "<p>Query: " . htmlspecialchars($query) . "</p>";
+                    // echo "<p>Query: " . htmlspecialchars($query) . "</p>";
                 }
             }
             ?>

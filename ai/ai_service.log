@@ -214,3 +214,11 @@
 2025-08-23 12:26:16,314 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 13:22:08 CEST)" was missed by 0:04:08.149940
 2025-08-23 13:22:28,668 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 14:22:08 CEST)" was missed by 0:00:20.491673
 2025-08-23 14:22:40,888 - apscheduler.executors.default - WARNING - Run time of job "BloodInventoryMonitor.check_inventory_levels (trigger: interval[1:00:00], next run at: 2025-08-23 15:22:08 CEST)" was missed by 0:00:32.723032
+2025-09-22T09:29:54+00:00 - predictions: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2033 ms: Couldn't connect to server"}
+2025-09-22T09:29:56+00:00 - demand: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2031 ms: Couldn't connect to server"}
+2025-09-22T09:29:58+00:00 - anomalies: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2027 ms: Couldn't connect to server"}
+2025-09-22T09:30:00+00:00 - forecast: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2027 ms: Couldn't connect to server"}
+2025-09-22T09:30:42+00:00 - predictions: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2023 ms: Couldn't connect to server"}
+2025-09-22T09:30:44+00:00 - demand: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2031 ms: Couldn't connect to server"}
+2025-09-22T09:30:46+00:00 - anomalies: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2033 ms: Couldn't connect to server"}
+2025-09-22T09:30:48+00:00 - forecast: {"error":"Failed to connect to 127.0.0.1 port 5000 after 2026 ms: Couldn't connect to server"}

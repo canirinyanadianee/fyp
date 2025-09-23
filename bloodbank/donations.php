@@ -1,23 +1,49 @@
 <?php
-// Database connection
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'bloodbank';
+// Include configuration and database connection
+require_once '../includes/config.php';
+require_once '../includes/db.php';
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Check if user is logged in and is a blood bank
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'bloodbank') {
+    header('Location: ../login.php');
+    exit();
 }
 
-// Fetch donors and their donations
+// Determine current blood bank
+$user_id = (int)$_SESSION['user_id'];
+$bank = $conn->query("SELECT id, name FROM blood_banks WHERE user_id = $user_id")->fetch_assoc();
+if (!$bank) {
+    $_SESSION['error'] = 'Blood bank profile not found for this account.';
+    header('Location: index.php');
+    exit();
+}
+$blood_bank_id = (int)$bank['id'];
+
+// Fetch donors and their donations for this bank using blood_donations table
 $sql = "
-    SELECT donors.id AS donor_id, donors.name AS donor_name, donors.blood_type, donations.id AS donation_id, donations.date, donations.amount
-    FROM donors
-    INNER JOIN donations ON donors.id = donations.donor_id
-    ORDER BY donors.name, donations.date DESC
+    SELECT d.id AS donor_id,
+           CONCAT(d.first_name, ' ', d.last_name) AS donor_name,
+           d.blood_type,
+           bd.id AS donation_id,
+           bd.donation_date AS date,
+           bd.quantity_ml AS amount
+    FROM blood_donations bd
+    INNER JOIN donors d ON d.id = bd.donor_id
+    WHERE bd.blood_bank_id = ?
+    ORDER BY d.first_name, d.last_name, bd.donation_date DESC
 ";
-$result = $conn->query($sql);
+
+$stmt = $conn->prepare($sql);
+if ($stmt) {
+    $stmt->bind_param('i', $blood_bank_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+} else {
+    $result = false;
+}
+
+include __DIR__ . '/includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +51,7 @@ $result = $conn->query($sql);
 <head>
     <title>Donor Donations</title>
     <style>
+        background-color:rgb(78, 84, 126);
         table { border-collapse: collapse; width: 80%; margin: 20px auto; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         th { background: #f2f2f2; }
@@ -59,4 +86,4 @@ $result = $conn->query($sql);
 
 <?php
 $conn->close();
-?></tr></body></style>
+?>

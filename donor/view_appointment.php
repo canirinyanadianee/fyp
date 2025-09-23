@@ -67,14 +67,33 @@ require_once '../includes/donor_header.php';
                         <p class="muted small mb-2"><?php echo htmlspecialchars(trim(($appointment['bank_address'] ?? '') . ' ' . ($appointment['city'] ?? '') . ' ' . ($appointment['state'] ?? ''))); ?></p>
 
                         <p class="mb-1"><strong>Status:</strong>
-                            <?php $s = $appointment['status'] ?? 'pending';
-                                $cls = $s === 'confirmed' ? 'bg-success' : ($s === 'cancelled' ? 'bg-danger' : 'bg-warning text-dark'); ?>
+                            <?php 
+                                $s = $appointment['status'] ?? 'pending';
+                                if (in_array($s, ['confirmed','approved','completed'])) {
+                                    $cls = 'bg-success';
+                                } elseif ($s === 'rejected') {
+                                    $cls = 'bg-danger';
+                                } elseif ($s === 'cancelled') {
+                                    $cls = 'bg-secondary';
+                                } else {
+                                    $cls = 'bg-warning text-dark';
+                                }
+                            ?>
                             <span class="badge <?php echo $cls; ?> py-2 px-3"><?php echo ucfirst($s); ?></span>
                         </p>
 
                         <hr>
                         <h6 class="mb-2">Notes</h6>
-                        <p class="muted small"><?php echo htmlspecialchars($appointment['notes'] ?? 'No additional notes.'); ?></p>
+                        <?php 
+                            $reason = $appointment['decision_reason'] ?? '';
+                            $notes = $appointment['notes'] ?? '';
+                            $display_notes = $reason ?: $notes;
+                        ?>
+                        <?php if (!empty($display_notes)): ?>
+                            <p class="muted small"><?php echo htmlspecialchars($display_notes); ?></p>
+                        <?php else: ?>
+                            <p class="muted small">No additional notes.</p>
+                        <?php endif; ?>
                     </div>
                     <div class="col-md-4">
                         <div class="d-grid gap-2">

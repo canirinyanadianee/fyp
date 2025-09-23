@@ -83,14 +83,59 @@ $blood_types = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            background-image: url('image.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+        }
         .status-urgent { background-color: #f8d7da; }
         .status-low { background-color: #fff3cd; }
         .status-normal { background-color: #d1e7dd; }
         .expiry-soon { color: #ffc107; font-weight: bold; }
         .expiry-expired { color: #dc3545; text-decoration: line-through; font-weight: bold; }
-    </style>
+    
+<style>
+.navbar-brand { font-weight: bold; letter-spacing: 1px; }
+            .footer { background: #23272b; color: #e0e0e0; padding: 2rem 0 1rem 0; margin-top: 3rem; }
+            .footer a { color: #e0e0e0; text-decoration: underline; }
+            body.dark-mode { background: #181a1b !important; color: #e0e0e0 !important; }
+            body.dark-mode .navbar, body.dark-mode .card, body.dark-mode .dashboard-card, body.dark-mode .feature-card, body.dark-mode .modal-content, body.dark-mode .footer { background-color: #23272b !important; color: #e0e0e0 !important; }
+            body.dark-mode .table, body.dark-mode .table-bordered, body.dark-mode .table-light { color: #e0e0e0 !important; background-color: #23272b !important; }
+            body.dark-mode .bg-white, body.dark-mode .bg-light, body.dark-mode .bg-primary, body.dark-mode .bg-info, body.dark-mode .bg-warning, body.dark-mode .bg-danger, body.dark-mode .bg-success, body.dark-mode .bg-secondary, body.dark-mode .bg-dark { background-color: #23272b !important; color: #e0e0e0 !important; }
+            body.dark-mode .btn, body.dark-mode .btn-primary, body.dark-mode .btn-outline-primary, body.dark-mode .btn-light, body.dark-mode .btn-outline-light { color: #e0e0e0 !important; }
+        </style>
 </head>
 <body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top mb-4">
+            <div class="container">
+                <a class="navbar-brand text-primary" href="index.php"><i class="fas fa-warehouse me-2"></i><?php echo htmlspecialchars($bank['name']); ?> Blood Bank</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavBB" aria-controls="navbarNavBB" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavBB">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="inventory.php"><i class="fas fa-warehouse me-1 text-info"></i>Manage Inventory</a></li>
+                        <li class="nav-item"><a class="nav-link" href="donors.php"><i class="fas fa-users me-1 text-success"></i>View Donors</a></li>
+                        <li class="nav-item"><a class="nav-link" href="record_donation.php"><i class="fas fa-tint me-1 text-danger"></i>Record Donation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="transfers.php"><i class="fas fa-exchange-alt me-1 text-warning"></i>Process Transfers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="reports.php"><i class="fas fa-chart-bar me-1 text-primary"></i>Reports & Insights</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile.php"><i class="fas fa-user me-1 text-secondary"></i>Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="change_password.php"><i class="fas fa-key me-1 text-secondary"></i>Change Password</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../logout.php"><i class="fas fa-sign-out-alt me-1 text-danger"></i>Logout</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <button id="theme-toggle" class="btn btn-outline-secondary me-2" title="Toggle light/dark mode"><i class="fas fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+</nav>
 <div class="container py-4">
     <h2 class="mb-4">
         <i class="fas fa-tint text-danger me-2"></i>Manage Blood Inventory
@@ -176,6 +221,7 @@ $blood_types = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
                         }
                         
                         $status_class = strtolower(str_replace(' ', '-', $row['status_level']));
+                        include __DIR__ . '/includes/header.php';
                     ?>
                     <tr class="status-<?php echo $status_class; ?>">
                         <td><?php echo htmlspecialchars($row['blood_type']); ?></td>

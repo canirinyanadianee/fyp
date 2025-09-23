@@ -34,16 +34,28 @@ if (empty($hospital_id)) {
     $hospital_id = (int)$user_id;
 }
 
-// Handle status update
+// Handle status update (approve/reject/cancel) with optional reason
 if ($_POST && isset($_POST['update_request'])) {
-    $request_id = $_POST['request_id'];
-    $new_status = $_POST['status'];
-    
-    $update_sql = "UPDATE blood_requests SET status = ?, updated_at = NOW() WHERE id = ? AND hospital_id = ?";
-    $update_stmt = $conn->prepare($update_sql);
-    if ($update_stmt) {
-        $update_stmt->bind_param("sii", $new_status, $request_id, $hospital_id);
-        $update_stmt->execute();
+    $request_id = (int)($_POST['request_id'] ?? 0);
+    $new_status = $_POST['status'] ?? '';
+    $reason = trim($_POST['reason'] ?? '');
+
+    if ($request_id > 0 && in_array($new_status, ['approved','rejected','completed','pending'], true)) {
+        // If rejecting and reason provided, append to notes
+        if ($new_status === 'rejected' && $reason !== '') {
+             $upd = $conn->prepare("UPDATE blood_requests SET status = 'rejected', notes = CONCAT(COALESCE(notes,''), CASE WHEN notes IS NULL OR notes = '' THEN '' ELSE '\n' END, 'Rejection reason: ', ?), updated_at = NOW() WHERE id = ? AND hospital_id = ?");
+            if ($upd) {
+                $upd->bind_param('sii', $reason, $request_id, $hospital_id);
+                $upd->execute();
+            }
+        } else {
+            $update_sql = "UPDATE blood_requests SET status = ?, updated_at = NOW() WHERE id = ? AND hospital_id = ?";
+            $update_stmt = $conn->prepare($update_sql);
+            if ($update_stmt) {
+                $update_stmt->bind_param("sii", $new_status, $request_id, $hospital_id);
+                $update_stmt->execute();
+            }
+        }
     }
 }
 
@@ -278,15 +290,18 @@ if ($stats_stmt) {
                                                         <i class="fas fa-eye"></i> View
                                                     </button>
 
-                                                    <?php if (!in_array($request['status'], ['rejected','completed'])): ?>
-                                                        <form method="post" class="d-inline ms-1" onsubmit="return confirm('Cancel this request?');">
+                                                    <?php if ($request['status'] === 'pending'): ?>
+                                                        <form method="post" class="d-inline ms-1" onsubmit="return confirm('Approve this request?');">
                                                             <input type="hidden" name="update_request" value="1">
                                                             <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                                                            <input type="hidden" name="status" value="rejected">
-                                                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                                <i class="fas fa-times"></i> Cancel
+                                                            <input type="hidden" name="status" value="approved">
+                                                            <button type="submit" class="btn btn-sm btn-success">
+                                                                <i class="fas fa-check me-1"></i>Approve
                                                             </button>
                                                         </form>
+                                                        <button class="btn btn-sm btn-danger ms-1" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="<?php echo $request['id']; ?>">
+                                                            <i class="fas fa-times me-1"></i>Reject
+                                                        </button>
                                                     <?php endif; ?>
                                                 </td>
                                             </tr>
@@ -389,6 +404,33 @@ if ($stats_stmt) {
         </div>
     <?php endforeach; ?>
 
+    <!-- Reject Modal (reused for any request) -->
+    <div class="modal fade" id="rejectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reject Blood Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="update_request" value="1">
+                        <input type="hidden" name="status" value="rejected">
+                        <input type="hidden" name="request_id" id="rejectRequestId" value="0">
+                        <div class="mb-3">
+                            <label for="rejectReason" class="form-label">Reason for rejection</label>
+                            <textarea class="form-control" id="rejectReason" name="reason" rows="3" placeholder="Provide a reason" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Reject Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // If the page was loaded with ?new_id=, open the corresponding modal and highlight
@@ -405,6 +447,18 @@ if ($stats_stmt) {
                     setTimeout(function(){ row.style.backgroundColor = ''; }, 3000);
                 }
             }
+        })();
+        // Populate reject modal with the clicked request id
+        (function(){
+            var rejectModal = document.getElementById('rejectModal');
+            if (!rejectModal) return;
+            rejectModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget; // Button that triggered the modal
+                if (!button) return;
+                var reqId = button.getAttribute('data-id');
+                var input = document.getElementById('rejectRequestId');
+                if (input && reqId) input.value = reqId;
+            });
         })();
     </script>
 </body>

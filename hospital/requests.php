@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $patient_age = (int)($_POST['patient_age'] ?? 0);
     $reason = sanitize_input($_POST['reason'] ?? '');
     $required_by = sanitize_input($_POST['required_by'] ?? '');
+    $selected_bank_id = isset($_POST['blood_bank_id']) ? (int)$_POST['blood_bank_id'] : 0;
 
     if (empty($blood_type) || !in_array($blood_type, $blood_types)) {
         $error = 'Please select a valid blood type';
@@ -68,7 +69,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Please enter a valid quantity (greater than 0)';
     } elseif (empty($patient_name)) {
         $error = 'Please enter patient name';
+    } elseif ($selected_bank_id <= 0) {
+        $error = 'Please choose a blood bank to send this request to';
     } else {
+        // Validate selected bank exists
+        $bank_ok = false;
+        if ($chk = $conn->prepare("SELECT id FROM blood_banks WHERE id = ? LIMIT 1")) {
+            $chk->bind_param('i', $selected_bank_id);
+            $chk->execute();
+            $bank_ok = (bool)$chk->get_result()->fetch_assoc();
+            $chk->close();
+        }
+        if (!$bank_ok) {
+            $error = 'Selected blood bank is invalid.';
+        }
+    }
+
+    if (empty($error)) {
         $sql = "INSERT INTO blood_requests (hospital_id, blood_type, quantity_ml, urgency, patient_name, notes)
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
@@ -77,6 +94,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($stmt->execute()) {
             $new_id = (int) $conn->insert_id;
+            // Create a targeted transfer to the selected bank with status 'requested'
+            if ($tr = $conn->prepare("INSERT INTO blood_transfers (blood_bank_id, hospital_id, blood_type, quantity_ml, request_type, status, transfer_date, notes, proposal_origin, proposed_by) VALUES (?, ?, ?, ?, 'hospital_request', 'requested', NOW(), ?, 'hospital_portal', ?)")) {
+                $t_notes = 'Requested via hospital portal for request #' . $new_id;
+                $proposed_by = 'hospital_user_' . $user_id;
+                $tr->bind_param('iisiss', $selected_bank_id, $hospital_id, $blood_type, $quantity_ml, $t_notes, $proposed_by);
+                $tr->execute();
+            }
             // Call AI recommender to get recommended donors for this request
             try {
                 $ai_url = 'http://127.0.0.1:5000/api/recommend-donors?blood_type=' . urlencode($blood_type) . '&max_results=20';
@@ -274,6 +298,17 @@ $page_title = "Request Blood";
                                     <label class="form-label"><i class="fas fa-calendar-alt me-2 text-primary"></i>Required By</label>
                                     <input type="date" class="form-control" name="required_by" min="<?= date('Y-m-d'); ?>">
                                 </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fas fa-warehouse me-2 text-success"></i>Choose Blood Bank *</label>
+                                <select class="form-select" name="blood_bank_id" required>
+                                    <option value="">Select a blood bank</option>
+                                    <?php foreach ($blood_banks as $bank): ?>
+                                        <option value="<?= (int)$bank['id']; ?>"><?= htmlspecialchars($bank['name']); ?><?= !empty($bank['city']) ? ' - ' . htmlspecialchars($bank['city']) : '' ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="form-text">Your request will be routed to the selected blood bank.</div>
                             </div>
 
                             <div class="row">

@@ -41,12 +41,14 @@ $query .= " ORDER BY
     CASE 
         WHEN t.status = 'requested' THEN 1
         WHEN t.status = 'approved' THEN 2
-        WHEN t.status = 'completed' THEN 3
-        ELSE 4
+        WHEN t.status = 'in_transit' THEN 3
+        WHEN t.status = 'delivered' THEN 4
+        WHEN t.status = 'rejected' THEN 5
+        ELSE 6
     END,
     t.transfer_date DESC";
 
-// Handle approve/reject actions
+// Handle approve/reject/dispatch/deliver actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['transfer_id'])) {
     $transfer_id = intval($_POST['transfer_id']);
     $action = $_POST['action'] ?? '';
@@ -62,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['transfer_id'])) {
         ")->fetch_assoc();
         
         if ($transfer && $transfer['available_quantity'] >= $transfer['quantity_ml']) {
-            $conn->query("UPDATE blood_transfers SET status = 'approved', approved_at = NOW() 
+            $conn->query("UPDATE blood_transfers SET status = 'approved' 
                          WHERE id = $transfer_id AND blood_bank_id = $blood_bank_id");
             $_SESSION['success'] = "Transfer request approved";
         } else {
@@ -71,9 +73,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['transfer_id'])) {
     } 
     elseif ($action === 'reject') {
         $reason = $conn->real_escape_string($_POST['reject_reason'] ?? 'No reason provided');
-        $conn->query("UPDATE blood_transfers SET status = 'rejected', rejected_at = NOW(), 
-                     reject_reason = '$reason' WHERE id = $transfer_id");
+        $conn->query("UPDATE blood_transfers SET status = 'rejected', notes = CONCAT(IFNULL(notes,''), '\nRejected: ', '$reason') WHERE id = $transfer_id AND blood_bank_id = $blood_bank_id");
         $_SESSION['success'] = "Transfer request rejected";
+    }
+    elseif ($action === 'dispatch') {
+        // Move approved -> in_transit
+        $conn->query("UPDATE blood_transfers SET status = 'in_transit' WHERE id = $transfer_id AND blood_bank_id = $blood_bank_id AND status = 'approved'");
+        if ($conn->affected_rows > 0) {
+            $_SESSION['success'] = "Transfer dispatched (in transit).";
+            // Notify hospital about dispatch
+            if ($tr = $conn->query("SELECT hospital_id, blood_type, quantity_ml FROM blood_transfers WHERE id = $transfer_id AND blood_bank_id = $blood_bank_id")) {
+                if ($row = $tr->fetch_assoc()) {
+                    $hid = (int)$row['hospital_id'];
+                    $bt = $conn->real_escape_string($row['blood_type']);
+                    $qty = (int)$row['quantity_ml'];
+                    $msg = sprintf('Your transfer for %s (%d ml) has been dispatched and is in transit.', $bt, $qty);
+                    $conn->query("INSERT INTO ai_notifications (entity_type, entity_id, message, blood_type, urgency_level, created_at, read_status, action_taken) VALUES ('hospital', $hid, '$msg', '$bt', 'medium', NOW(), 0, 0)");
+                }
+            }
+        } else {
+            $_SESSION['error'] = "Unable to dispatch. Ensure the transfer is approved.";
+        }
+    }
+    elseif ($action === 'deliver') {
+        // Move in_transit -> delivered
+        $conn->query("UPDATE blood_transfers SET status = 'delivered' WHERE id = $transfer_id AND blood_bank_id = $blood_bank_id AND status = 'in_transit'");
+        if ($conn->affected_rows > 0) {
+            $_SESSION['success'] = "Transfer marked as delivered.";
+            // Notify hospital about delivery
+            if ($tr = $conn->query("SELECT hospital_id, blood_type, quantity_ml FROM blood_transfers WHERE id = $transfer_id AND blood_bank_id = $blood_bank_id")) {
+                if ($row = $tr->fetch_assoc()) {
+                    $hid = (int)$row['hospital_id'];
+                    $bt = $conn->real_escape_string($row['blood_type']);
+                    $qty = (int)$row['quantity_ml'];
+                    $msg = sprintf('Your transfer for %s (%d ml) has been delivered.', $bt, $qty);
+                    $conn->query("INSERT INTO ai_notifications (entity_type, entity_id, message, blood_type, urgency_level, created_at, read_status, action_taken) VALUES ('hospital', $hid, '$msg', '$bt', 'low', NOW(), 0, 0)");
+                }
+            }
+        } else {
+            $_SESSION['error'] = "Unable to mark delivered. Ensure the transfer is in transit.";
+        }
     }
     
     header('Location: ' . $_SERVER['PHP_SELF']);
@@ -82,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['transfer_id'])) {
 
 $transfers = $conn->query($query);
 $blood_types = $conn->query("SELECT DISTINCT blood_type FROM blood_inventory WHERE blood_bank_id = $blood_bank_id")->fetch_all(MYSQLI_ASSOC);
+include __DIR__ . '/includes/header.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +133,8 @@ $blood_types = $conn->query("SELECT DISTINCT blood_type FROM blood_inventory WHE
     <style>
         .status-requested { background-color: #e2e3e5; }
         .status-approved { background-color: #c3e6cb; }
-        .status-completed { background-color: #b8daff; }
+        .status-in-transit { background-color: #b8daff; }
+        .status-delivered { background-color: #b8daff; }
         .status-rejected { background-color: #f5c6cb; }
     </style>
 </head>
@@ -113,7 +154,9 @@ $blood_types = $conn->query("SELECT DISTINCT blood_type FROM blood_inventory WHE
                         <option value="">All Statuses</option>
                         <option value="requested" <?= $status_filter === 'requested' ? 'selected' : '' ?>>Requested</option>
                         <option value="approved" <?= $status_filter === 'approved' ? 'selected' : '' ?>>Approved</option>
-                        <option value="completed" <?= $status_filter === 'completed' ? 'selected' : '' ?>>Completed</option>
+                        <option value="in_transit" <?= $status_filter === 'in_transit' ? 'selected' : '' ?>>In Transit</option>
+                        <option value="delivered" <?= $status_filter === 'delivered' ? 'selected' : '' ?>>Delivered</option>
+                        <option value="rejected" <?= $status_filter === 'rejected' ? 'selected' : '' ?>>Rejected</option>
                     </select>
                 </div>
                 <div class="col-md-5">
@@ -184,12 +227,15 @@ $blood_types = $conn->query("SELECT DISTINCT blood_type FROM blood_inventory WHE
                             <?php endif; ?>
                         </td>
                         <td>
-                            <span class="badge bg-<?= 
-                                $tr['status'] === 'approved' ? 'success' : 
-                                ($tr['status'] === 'rejected' ? 'danger' : 'warning') 
-                            ?>">
-                                <?= ucfirst($tr['status']) ?>
-                            </span>
+                            <?php
+                              $badgeClass = 'secondary';
+                              if ($tr['status'] === 'requested') $badgeClass = 'warning';
+                              elseif ($tr['status'] === 'approved') $badgeClass = 'success';
+                              elseif ($tr['status'] === 'in_transit') $badgeClass = 'info';
+                              elseif ($tr['status'] === 'delivered') $badgeClass = 'primary';
+                              elseif ($tr['status'] === 'rejected') $badgeClass = 'danger';
+                            ?>
+                            <span class="badge bg-<?= $badgeClass ?>"><?= ucwords(str_replace('_',' ', $tr['status'])) ?></span>
                         </td>
                         <td><?= date('M j, Y', strtotime($tr['transfer_date'])) ?></td>
                         <td>
@@ -206,6 +252,20 @@ $blood_types = $conn->query("SELECT DISTINCT blood_type FROM blood_inventory WHE
                                     onclick="showRejectModal(<?= $tr['id'] ?>)">
                                     <i class="fas fa-times"></i>
                                 </button>
+                            <?php elseif ($tr['status'] === 'approved'): ?>
+                                <form method="post" class="d-inline" onsubmit="return confirm('Dispatch this transfer (mark In Transit)?');">
+                                    <input type="hidden" name="transfer_id" value="<?= $tr['id'] ?>">
+                                    <button type="submit" name="action" value="dispatch" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-truck"></i>
+                                    </button>
+                                </form>
+                            <?php elseif ($tr['status'] === 'in_transit'): ?>
+                                <form method="post" class="d-inline" onsubmit="return confirm('Mark this transfer as Delivered?');">
+                                    <input type="hidden" name="transfer_id" value="<?= $tr['id'] ?>">
+                                    <button type="submit" name="action" value="deliver" class="btn btn-sm btn-info text-white">
+                                        <i class="fas fa-check-double"></i>
+                                    </button>
+                                </form>
                             <?php endif; ?>
                         </td>
                     </tr>

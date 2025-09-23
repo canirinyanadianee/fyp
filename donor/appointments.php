@@ -100,6 +100,7 @@ $appointments = $conn->query("SELECT a.*, b.name as blood_bank FROM appointments
 				<th>Date & Time</th>
 				<th>Blood Bank</th>
 				<th>Status</th>
+				<th>Reason</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -109,15 +110,18 @@ $appointments = $conn->query("SELECT a.*, b.name as blood_bank FROM appointments
 			<tr>
 				<td><?php echo date('M d, Y H:i', strtotime($row['appointment_date'])); ?></td>
 				<td><?php echo htmlspecialchars($row['blood_bank']); ?></td>
-				<td><span class='badge bg-<?php echo $row['status'] === 'confirmed' ? 'success' : 'warning'; ?>'>
+				<td><span class='badge <?php echo ($row['status']==='confirmed'||$row['status']==='approved'||$row['status']==='completed') ? 'bg-success' : (($row['status']==='rejected') ? 'bg-danger' : (($row['status']==='cancelled') ? 'bg-secondary' : 'bg-warning text-dark')); ?>'>
 					<?php echo ucfirst($row['status']); ?>
 				</span></td>
+				<td class="text-muted small">
+					<?php echo htmlspecialchars($row['decision_reason'] ?? $row['notes'] ?? ''); ?>
+				</td>
 				<td>
 					<a href="view_appointment.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">View</a>
 				</td>
 			</tr>
 		<?php endwhile; else: ?>
-			<tr><td colspan='3' class='text-center text-muted'>No appointments found.</td></tr>
+			<tr><td colspan='5' class='text-center text-muted'>No appointments found.</td></tr>
 		<?php endif; ?>
 		</tbody>
 	</table>

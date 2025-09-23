@@ -79,7 +79,13 @@ try {
                                         </div>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                        <button 
+                                            class="btn btn-sm btn-outline-primary view-shortage-details"
+                                            data-blood-type="<?php echo htmlspecialchars($shortage['blood_type']); ?>"
+                                            data-days="<?php echo (int)$shortage['days_until_shortage']; ?>"
+                                            data-confidence="<?php echo number_format($shortage['confidence'] * 100, 1); ?>">
+                                            View Details
+                                        </button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -121,7 +127,7 @@ try {
                 </div>
             </div>
 
-            <!-- Demand Forecasting -->
+            Demand Forecasting
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -136,6 +142,56 @@ try {
             </div>
         </main>
     </div>
+</div>
+
+<!-- Shortage Details Modal -->
+<div class="modal fade" id="shortageDetailsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Predicted Shortage Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="border rounded p-3 h-100">
+              <div class="text-muted small">Blood Type</div>
+              <div class="fs-4 fw-semibold" id="sd-blood-type">-</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="border rounded p-3 h-100">
+              <div class="text-muted small">Days Until Shortage</div>
+              <div class="fs-4 fw-semibold" id="sd-days">-</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="border rounded p-3 h-100">
+              <div class="text-muted small">Confidence</div>
+              <div class="d-flex align-items-center gap-2">
+                <div class="progress flex-grow-1" style="height: 10px;">
+                  <div id="sd-confidence-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                </div>
+                <div class="fw-semibold" id="sd-confidence">0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <p class="text-muted mb-2">Next steps:</p>
+        <ul class="mb-3">
+          <li>Review current stock and recent trends for this blood type in the Inventory Predictions dashboard.</li>
+          <li>Consider notifying nearby donors or proposing a transfer if predicted shortage is high severity.</li>
+        </ul>
+        <a href="inventory.php" class="btn btn-primary" id="sd-inventory-link" target="_blank">
+          <i class="fas fa-chart-line me-1"></i> Open Inventory Predictions
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Include Chart.js -->
@@ -197,6 +253,37 @@ const forecastChart = new Chart(forecastCtx, {
             }
         }
     }
+});
+
+// Shortage Details Modal handler
+document.addEventListener('DOMContentLoaded', function() {
+  const modalEl = document.getElementById('shortageDetailsModal');
+  const modal = modalEl ? new bootstrap.Modal(modalEl) : null;
+  document.querySelectorAll('.view-shortage-details').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const bt = btn.getAttribute('data-blood-type') || '-';
+      const days = btn.getAttribute('data-days') || '-';
+      const conf = btn.getAttribute('data-confidence') || '0';
+
+      document.getElementById('sd-blood-type').textContent = bt;
+      document.getElementById('sd-days').textContent = days + ' day' + (parseInt(days, 10) === 1 ? '' : 's');
+      document.getElementById('sd-confidence').textContent = conf + '%';
+      const bar = document.getElementById('sd-confidence-bar');
+      if (bar) {
+        const val = Math.max(0, Math.min(100, parseFloat(conf)));
+        bar.style.width = val + '%';
+        bar.className = 'progress-bar ' + (val >= 70 ? 'bg-success' : (val >= 50 ? 'bg-warning' : 'bg-danger'));
+      }
+
+      // Optionally deep-link to inventory page (kept generic for now)
+      const invLink = document.getElementById('sd-inventory-link');
+      if (invLink) {
+        invLink.href = 'inventory.php';
+      }
+
+      if (modal) modal.show();
+    });
+  });
 });
 </script>
 

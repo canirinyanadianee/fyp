@@ -163,7 +163,7 @@ $page_title = "Record Donation";
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="donors.php">Donations</a></li>
+                        <li class="breadcrumb-item"><a href="donations.php">Donations</a></li>
                         <li class="breadcrumb-item active">Record Donation</li>
                     </ol>
                 </nav>

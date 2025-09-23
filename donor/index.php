@@ -29,7 +29,8 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 		<style>
-				body { background: #795b9dff; }
+				body { background:rgb(129, 124, 136);
+					background-image: url('4.jpg');}
 				.sidebar { min-height: 100vh; background: #c6c6c6ff; border-right: 1px solid #e5e7eb; }
 				.sidebar .nav-link { color: #333; font-weight: 500; }
 				.sidebar .nav-link.active, .sidebar .nav-link:hover { background: #8e979fff; color: #0d6efd; }

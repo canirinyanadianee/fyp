@@ -30,6 +30,19 @@ $inventory = $conn->query("SELECT b.name,
 
 // Get all hospital transfer requests
 $transfers = $conn->query("SELECT t.*, h.name as hospital_name, b.name as bank_name FROM blood_transfers t JOIN hospitals h ON t.hospital_id = h.id JOIN blood_banks b ON t.blood_bank_id = b.id ORDER BY t.transfer_date DESC");
+
+// Get current blood bank information
+$bank = [];
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'bloodbank') {
+    $stmt = $conn->prepare("SELECT * FROM blood_banks WHERE user_id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $bank = $result->fetch_assoc();
+}
+
+// Set default bank name if not found
+$bankName = isset($bank['name']) ? htmlspecialchars($bank['name']) : 'Blood Bank';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,9 +50,56 @@ $transfers = $conn->query("SELECT t.*, h.name as hospital_name, b.name as bank_n
     <meta charset="UTF-8">
     <title>All Blood Banks Report</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"><style>
+<style>
+.navbar{
+    background-color:rgb(11, 5, 24); /* light green hover */ 
+}
+  .navbar .nav-link {
+    transition: 0.3s ease;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: #0d6efd; /* default blue */
+  }
+  .navbar .nav-link:hover {
+    background-color:rgb(11, 5, 24); /* light green hover */
+    color: #198754 !important; /* green on hover */
+  }
+  .navbar .nav-link.active {
+    background-color: #198754 !important; /* green background */
+    color: #fff !important;
+  }
+  .navbar .nav-link i {
+    width: 18px;
+    text-align: center;
+  }
+  
+</style>
 </head>
 <body>
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top mb-4">
+                <a class="navbar-brand text-primary" href="index.php"><i class="fas fa-warehouse me-2"></i><?php echo $bankName; ?></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavBB" aria-controls="navbarNavBB" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavBB">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="inventory.php"><i class="fas fa-warehouse me-1 text-info"></i>Manage Inventory</a></li>
+                        <li class="nav-item"><a class="nav-link" href="donors.php"><i class="fas fa-users me-1 text-success"></i>View Donors</a></li>
+                        <li class="nav-item"><a class="nav-link" href="record_donation.php"><i class="fas fa-tint me-1 text-danger"></i>Record Donation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="transfers.php"><i class="fas fa-exchange-alt me-1 text-warning"></i>Process Transfers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="reports.php"><i class="fas fa-chart-bar me-1 text-primary"></i>Reports & Insights</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile.php"><i class="fas fa-user me-1 text-secondary"></i>Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="change_password.php"><i class="fas fa-key me-1 text-secondary"></i>Change Password</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../logout.php"><i class="fas fa-sign-out-alt me-1 text-danger"></i>Logout</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <button id="theme-toggle" class="btn btn-outline-secondary me-2" title="Toggle light/dark mode"><i class="fas fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+</nav>  <div class="container">
 <div class="container py-4">
     <h2 class="mb-4"><i class="fas fa-warehouse text-primary me-2"></i>All Blood Banks Information</h2>
     <h4 class="mt-4">Blood Banks</h4>
