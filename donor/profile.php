@@ -14,6 +14,8 @@ $errors = [];
 $success = '';
 
 // Fetch last automated eligibility check for this donor (if any)
+
+$donor = $conn->query("SELECT * FROM donors WHERE user_id = $user_id")->fetch_assoc();
 $last_check = null;
 if ($donor) {
     $d_id = (int)$donor['id'];
@@ -27,9 +29,6 @@ if ($donor) {
         }
     }
 }
-
-// Fetch existing donor profile if any
-$donor = $conn->query("SELECT * FROM donors WHERE user_id = $user_id")->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // If donor requested a live eligibility check

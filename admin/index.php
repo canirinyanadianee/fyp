@@ -113,6 +113,36 @@ foreach ($activities as $activity) {
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white" href="user_management.php">
+                            <i class="fas fa-user-cog me-2"></i>User Management Panel
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="system_monitoring.php">
+                            <i class="fas fa-eye me-2"></i>System Monitoring
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="blood_request_workflow.php">
+                            <i class="fas fa-tint me-2"></i>Blood Request Workflow
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="reports_analytics.php">
+                            <i class="fas fa-chart-bar me-2"></i>Reports & Analytics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="notifications_center.php">
+                            <i class="fas fa-bell me-2"></i>Notifications & Alerts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="ml_insights.php">
+                            <i class="fas fa-robot me-2"></i>ML Insights
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white" href="hospitals.php?table=hospitals">
                             <i class="fas fa-hospital me-2"></i>Hospitals
                         </a>
@@ -145,6 +175,11 @@ foreach ($activities as $activity) {
                             <i class="fas fa-cog me-2"></i>System Settings
                         </a>
                     </li>
+                    <li class="nav-item mt-3">
+                        <a class="nav-link text-white bg-danger bg-opacity-75 rounded" href="../logout.php">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </li>
                 </ul>
                 </ul>
             </div>
@@ -164,8 +199,91 @@ foreach ($activities as $activity) {
                 </div>
             </div>
             
-            <!-- Stats Cards -->
+            <!-- Central Dashboard Overview -->
             <div class="row mb-4">
+                <div class="col-12 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-globe me-2"></i>Central Dashboard: Nationwide Blood Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <div class="card bg-primary bg-opacity-10 border-0 h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-muted mb-1">Total Blood Units</h6>
+                                            <h2 class="mb-0"><?php echo number_format($stats['total_blood_units']); ?></h2>
+                                            <div class="form-text">Available nationwide</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-warning bg-opacity-10 border-0 h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-muted mb-1">Expiring Soon</h6>
+                                            <h2 class="mb-0">--</h2>
+                                            <div class="form-text">Units expiring in 7 days</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-success bg-opacity-10 border-0 h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-muted mb-1">Supply vs. Demand</h6>
+                                            <h2 class="mb-0">--</h2>
+                                            <div class="form-text">Current month</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-danger bg-opacity-10 border-0 h-100">
+                                        <div class="card-body">
+                                            <h6 class="text-muted mb-1">Shortage Alerts</h6>
+                                            <h2 class="mb-0">--</h2>
+                                            <div class="form-text">ML predicted</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="ml_dashboard.php" class="btn btn-outline-info me-2"><i class="fas fa-brain me-1"></i>View ML Insights</a>
+                                <a href="reports.php" class="btn btn-outline-primary"><i class="fas fa-file-alt me-1"></i>View Reports</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ML Features Quick Access -->
+                <div class="col-md-12 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-brain me-2"></i>AI & ML Features</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <a href="ml_dashboard.php#anomaly" class="btn btn-outline-danger w-100">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Anomaly Detection
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="ml_dashboard.php#forecast" class="btn btn-outline-warning w-100">
+                                        <i class="fas fa-chart-line me-2"></i>Demand Forecast
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="ml_donor_matching.php" class="btn btn-outline-success w-100">
+                                        <i class="fas fa-user-friends me-2"></i>Donor Matching
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="ml_dashboard.php#forecasting" class="btn btn-outline-info w-100">
+                                        <i class="fas fa-bullseye me-2"></i>Demand Forecasting
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4 col-lg-2 mb-3">
                     <div class="card bg-primary bg-opacity-10 border-0 h-100">
                         <div class="card-body">

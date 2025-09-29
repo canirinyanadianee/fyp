@@ -49,59 +49,63 @@ $customCSS = "
         color: #e74a3b;
     }";
 
+
+// Ensure session is started before using $_SESSION
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        // Basic validation
         $required = ['first_name', 'last_name', 'email', 'phone', 'blood_type', 'gender', 'dob', 'address'];
         $errors = [];
-        
+
         foreach ($required as $field) {
             if (empty(trim($_POST[$field] ?? ''))) {
                 $errors[] = ucfirst(str_replace('_', ' ', $field)) . ' is required';
             }
         }
-        
+
         // Validate email
         if (!filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Please enter a valid email address';
         }
-        
+
         // Validate phone number (basic validation)
         if (!preg_match('/^[0-9+\-\s()]{10,20}$/', $_POST['phone'] ?? '')) {
             $errors[] = 'Please enter a valid phone number';
         }
-        
+
         // Validate date of birth
-        $dob = new DateTime($_POST['dob']);
+        $dob = null;
+        try {
+            $dob = new DateTime($_POST['dob'] ?? '');
+        } catch (Exception $e) {
+            $errors[] = 'Invalid date of birth format';
+        }
         $minAgeDate = new DateTime('-18 years');
-        if ($dob > $minAgeDate) {
+        if ($dob && $dob > $minAgeDate) {
             $errors[] = 'Donor must be at least 18 years old';
         }
-        
+
         if (empty($errors)) {
-            // Start transaction
             $conn->begin_transaction();
-            
             try {
-                // Insert into users table
                 $stmt = $conn->prepare("INSERT INTO users (username, email, password, role, is_active) VALUES (?, ?, ?, 'donor', 1)");
                 $username = strtolower($_POST['first_name'] . '.' . $_POST['last_name'] . rand(100, 999));
-                $password = password_hash('password123', PASSWORD_DEFAULT); // Default password
-                
+                $password = password_hash('password123', PASSWORD_DEFAULT);
                 $stmt->bind_param('sss', $username, $_POST['email'], $password);
                 $stmt->execute();
                 $user_id = $conn->insert_id;
-                
-                // Insert into donors table
+
                 $stmt = $conn->prepare("
                     INSERT INTO donors (
-                        user_id, first_name, last_name, email, phone, blood_type, 
-                        gender, dob, address, city, state, postal_code, 
+                        user_id, first_name, last_name, email, phone, blood_type,
+                        gender, dob, address, city, state, postal_code,
                         country, health_notes, last_donation_date, is_eligible, created_at
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, 1, NOW())
                 ");
-                
                 $stmt->bind_param(
                     'isssssssssssss',
                     $user_id,
@@ -119,20 +123,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_POST['country'] ?? '',
                     $_POST['health_notes'] ?? ''
                 );
-                
                 $stmt->execute();
                 $donor_id = $conn->insert_id;
-                
-                // Commit transaction
+
                 $conn->commit();
-                
-                // Redirect to donor list with success message
                 $_SESSION['success'] = 'Donor added successfully';
                 header('Location: donors.php');
                 exit();
-                
             } catch (Exception $e) {
-                // Rollback transaction on error
                 $conn->rollback();
                 $errors[] = 'Error adding donor: ' . $e->getMessage();
             }
@@ -176,7 +174,7 @@ include __DIR__ . '/../includes/admin_header.php';
                     <h6 class="m-0 font-weight-bold text-primary">Donor Information</h6>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="add_donor.php" id="addDonorForm" class="needs-validation" novalidate>
+                    <form method="POST" action="add_donor_fixed.php" id="addDonorForm" class="needs-validation" novalidate>
                         <!-- Personal Information Section -->
                         <div class="form-section mb-4">
                             <h5><i class="fas fa-user-circle me-2"></i>Personal Information</h5>
@@ -268,13 +266,13 @@ include __DIR__ . '/../includes/admin_header.php';
                                 <div class="col-md-6">
                                     <label for="city" class="form-label">City</label>
                                     <input type="text" class="form-control" id="city" name="city"
-                                           value="<?= htmlspecialchars($_POST['city'] ?? '')">
+                                           value="<?php echo htmlspecialchars($_POST['city'] ?? ''); ?>">
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <label for="state" class="form-label">State/Province</label>
                                     <input type="text" class="form-control" id="state" name="state"
-                                           value="<?= htmlspecialchars($_POST['state'] ?? '') ?>">
+                                           value="<?php echo htmlspecialchars($_POST['state'] ?? ''); ?>">
                                 </div>
                                 
                                 <div class="col-md-6">
