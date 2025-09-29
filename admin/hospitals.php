@@ -17,7 +17,8 @@ try {
     $hasIsActive = false;
 }
 
-$activeSelect = $hasIsActive ? "u.is_active as is_active" : "1 as is_active";
+// Build active flag depending on schema
+$activeSelect = $hasIsActive ? "u.is_active as is_active" : "(CASE WHEN u.status='active' THEN 1 ELSE 0 END) as is_active";
 
 $query = "SELECT h.*, 
           CONCAT_WS(', ', NULLIF(TRIM(h.city), ''), NULLIF(TRIM(h.state), '')) AS location,

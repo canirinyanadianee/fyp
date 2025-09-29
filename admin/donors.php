@@ -5,12 +5,27 @@ require_once '../includes/db_connect.php';
 requireAdminAccess();
 $page_title = "Manage Donors | " . APP_NAME;
 
+// Detect schema differences for user active flag
+$hasIsActive = false;
+try {
+    $col = $conn->query("SHOW COLUMNS FROM users LIKE 'is_active'");
+    if ($col) {
+        // PDOStatement with rowCount compat
+        $hasIsActive = ($col->rowCount() > 0);
+    }
+} catch (Exception $e) {
+    $hasIsActive = false;
+}
+
 // Simple search filter
 $search = trim($_GET['search'] ?? '');
 $blood_type = $_GET['blood_type'] ?? '';
 
 // Build basic query
-$query = "SELECT d.*, u.email, u.status as is_active,
+// Build active flag depending on schema
+$activeExpr = $hasIsActive ? "u.is_active" : "(CASE WHEN u.status='active' THEN 1 ELSE 0 END)";
+
+$query = "SELECT d.*, u.email, $activeExpr as is_active,
           (SELECT COUNT(*) FROM blood_donations WHERE donor_id = d.id) as donation_count,
           (SELECT MAX(donation_date) FROM blood_donations WHERE donor_id = d.id) as last_donation_date
           FROM donors d 
@@ -352,17 +367,21 @@ include '../includes/header.php';
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteDonorModal" tabindex="-1" aria-labelledby="deleteDonorModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <h5 class="modal-title" id="deleteDonorModalLabel">Confirm Deletion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Are you sure you want to delete donor <strong id="donorName"></strong>? This action cannot be undone.
             </div>
             <div class="modal-footer">
+                <div class="form-check me-auto">
+                    <input class="form-check-input" type="checkbox" id="confirmDelete">
+                    <label class="form-check-label" for="confirmDelete">I understand this action cannot be undone.</label>
+                </div>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <form id="deleteDonorForm" method="POST" action="delete_donor.php" class="d-inline">
                     <input type="hidden" name="donor_id" id="deleteDonorId">
