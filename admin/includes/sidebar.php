@@ -48,35 +48,7 @@
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted">
                 <span>ML Models</span>
             </h6>
-            <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'anomaly_detection.php' ? 'active' : ''; ?> text-white" href="anomaly_detection.php">
-                        <i class="fas fa-exclamation-triangle me-2"></i>Anomaly Detection
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'demand_forecast.php' ? 'active' : ''; ?> text-white" href="demand_forecast.php">
-                        <i class="fas fa-chart-line me-2"></i>Demand Forecast
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="ml_donor_matching.php">
-                        <i class="fas fa-people-arrows me-2"></i>Donor Matching
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="ml_anomaly_detection.php">
-                        <i class="fas fa-exclamation-triangle me-2"></i>Anomaly Detection
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="ml_forecasting.php">
-                        <i class="fas fa-chart-line me-2"></i>Demand Forecasting
-                    </a>
-                </li>
-            </ul>
+            
         </div>
     </div>
 </nav>

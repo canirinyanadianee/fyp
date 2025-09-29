@@ -19,6 +19,23 @@ $conn->set_charset("utf8");
 // Include common functions
 require_once __DIR__ . '/functions.php';
 
+// Ensure activity_logs table exists (lazy creation)
+function ensure_activity_logs_table_exists() {
+    global $conn;
+    static $checked = false;
+    if ($checked) return;
+    $checked = true;
+    $conn->query(
+        "CREATE TABLE IF NOT EXISTS activity_logs (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NULL,
+            action VARCHAR(100) NOT NULL,
+            description TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+    );
+}
+
 // Function to redirect with message
 function redirect($url, $message = '', $message_type = 'info') {
     if ($message) {
@@ -35,8 +52,13 @@ function log_activity($user_id, $action, $description) {
     $user_id = (int)$user_id;
     $action = sanitize_input($action, $conn);
     $description = sanitize_input($description, $conn);
-    
+
+    // Create table if missing, then attempt insert. Swallow errors to avoid fatal UI breaks.
+    ensure_activity_logs_table_exists();
     $sql = "INSERT INTO activity_logs (user_id, action, description) VALUES ($user_id, '$action', '$description')";
-    $conn->query($sql);
+    if (!$conn->query($sql)) {
+        // Optional: write to PHP error log
+        error_log('log_activity insert failed: ' . $conn->error);
+    }
 }
 ?>

@@ -6,7 +6,21 @@ include '../includes/header.php';
 require_once '../includes/db.php';
 
 // Fetch all users (donors, hospitals, blood banks)
-$users = $conn->query("SELECT id, username, email, role, is_active FROM users ORDER BY role, username")->fetch_all(MYSQLI_ASSOC);
+// Handle schema differences: some databases have users.is_active, others use users.status
+$hasIsActive = false;
+if ($result = $conn->query("SHOW COLUMNS FROM users LIKE 'is_active'")) {
+    $hasIsActive = ($result->num_rows > 0);
+    $result->free();
+}
+
+if ($hasIsActive) {
+    $sql = "SELECT id, username, email, role, is_active FROM users ORDER BY role, username";
+} else {
+    // Map status enum to a boolean is_active flag
+    $sql = "SELECT id, username, email, role, (CASE WHEN status='active' THEN 1 ELSE 0 END) AS is_active FROM users ORDER BY role, username";
+}
+
+$users = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
 
 ?>
 <div class="container-fluid">
