@@ -27,7 +27,7 @@ function check_eligibility($donor) {
         $dob = new DateTime($donor['dob']);
         $age = $dob->diff($now)->y;
         if ($age < 17 || $age > 65) 
-            return ['eligible' => false, 'reason' => "Age restriction: $age years old."];
+            return ['eligible' => false, 'reason' => "Age restriction: 18 years old."];
     }
     
     // last donation check

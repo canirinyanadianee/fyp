@@ -61,7 +61,7 @@ if ($donor) {
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold text-primary" href="#">AI Blood Management System | Donor</a>
+        <a class="navbar-brand fw-bold text-primary" href="#"> Donation history| Donor</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home me-1"></i>Dashboard</a></li>
@@ -91,8 +91,8 @@ if ($donor) {
 						<th><i class="fas fa-calendar-day me-2"></i>Date</th>
 						<th><i class="fas fa-hospital me-2"></i>Blood Bank</th>
 						<th><i class="fas fa-tint me-2"></i>Blood Type</th>
-						<th><i class="fas fa-flask me-2"></i>Quantity (ml)</th>
-						<th><i class="fas fa-info-circle me-2"></i>Status</th>
+					
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -106,22 +106,16 @@ if ($donor) {
 							<?php if ($row['status'] === 'pending'): ?>
 								<form method="post" action="update_donation.php" class="d-flex align-items-center gap-2">
 									<input type="hidden" name="donation_id" value="<?php echo $row['id']; ?>">
-									<input type="number" name="quantity_ml" min="0" placeholder="ml" class="form-control form-control-sm w-50" required>
+									
 									<button type="submit" class="btn btn-sm btn-success">
 										<i class="fas fa-check"></i> Complete
 									</button>
 								</form>
 							<?php else: ?>
-								<?php echo $row['quantity_ml']; ?>
+								
 							<?php endif; ?>
 						</td>
-						<td>
-							<span class="badge bg-<?php 
-								echo $row['status'] === 'completed' ? 'success' : 
-									($row['status'] === 'pending' ? 'warning text-dark' : 'secondary'); ?>">
-								<?php echo ucfirst($row['status']); ?>
-							</span>
-						</td>
+					
 					</tr>
 				<?php endwhile; else: ?>
 					<tr>

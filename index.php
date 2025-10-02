@@ -18,7 +18,7 @@ require_once 'includes/config.php';
     <style id="theme-style">
         .hero-section {
             /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-            background-image: url('4.jpg');
+            background-image: url('4.png');
             min-height: 100vh;
             min-width:100vh;
             display: flex;
@@ -35,28 +35,42 @@ require_once 'includes/config.php';
         }
         .stats-section {
             background-color: #f8f9fa;
+            font-weight:bold;
         }
         body.dark-mode {
             background: #181a1b !important;
             color: #e0e0e0 !important;
+            background-color:bold;
+            
         }
         body.dark-mode .navbar, body.dark-mode .card, body.dark-mode .register-card, body.dark-mode .feature-card, body.dark-mode .stats-section, body.dark-mode .modal-content {
             background-color: #23272b !important;
             color: #e0e0e0 !important;
+            background-color:bold;
+            
         }
         body.dark-mode .navbar-light .navbar-nav .nav-link, body.dark-mode .navbar-light .navbar-brand {
             color: #e0e0e0 !important;
+            background-color:bold;
+            
         }
         body.dark-mode .table, body.dark-mode .table-bordered, body.dark-mode .table-light {
             color: #e0e0e0 !important;
             background-color: #23272b !important;
+            color:rgb(7, 91, 10) !important;
+            background-color:rgb(2, 15, 28);
+            /* font-weight:bold; */
         }
         body.dark-mode .bg-white, body.dark-mode .bg-light, body.dark-mode .bg-primary, body.dark-mode .bg-info, body.dark-mode .bg-warning, body.dark-mode .bg-danger, body.dark-mode .bg-success, body.dark-mode .bg-secondary, body.dark-mode .bg-dark {
             background-color: #23272b !important;
-            color: #e0e0e0 !important;
+            color:rgb(7, 91, 10) !important;
+            
+            /* font-weight:bold; */
         }
         body.dark-mode .btn, body.dark-mode .btn-primary, body.dark-mode .btn-outline-primary, body.dark-mode .btn-light, body.dark-mode .btn-outline-light {
-            color: #e0e0e0 !important;
+            color:rgb(7, 91, 10) !important;
+            background-color:rgb(2, 15, 28);
+            /* font-weight:bold; */
         }
     </style>
 </head>
@@ -65,7 +79,7 @@ require_once 'includes/config.php';
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.php">
-                <i class="fas fa-heartbeat text-danger me-2"></i>
+   <i class="fas fa-heartbeat text-danger me-2"></i>
                 <?php echo APP_NAME; ?>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -110,11 +124,10 @@ require_once 'includes/config.php';
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="display-4 fw-bold mb-4">
-                         Blood Management System
+                       Blood connect
                     </h1>
                     <p class="lead mb-4">
-                        Revolutionizing blood bank operations with artificial intelligence, 
-                        predictive analytics, and seamless hospital integration.
+                    Design and Deployment of a Mobile Application for Enhancing Blood Donation and Management Services"
                     </p>
                     <div class="d-flex gap-3">
                         <a href="register.php" class="btn btn-light btn-lg">
@@ -235,7 +248,7 @@ require_once 'includes/config.php';
                 <div class="col-lg-6">
                     <h2 class="display-6 fw-bold mb-4">About Our System</h2>
                     <p class="lead mb-4">
-                        Our AI-powered blood management system revolutionizes how blood banks, 
+                        Our system revolutionizes how blood banks, 
                         hospitals, and donors interact. With predictive analytics and real-time 
                         tracking, we ensure blood is available when and where it's needed most.
                     </p>

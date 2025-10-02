@@ -54,9 +54,11 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'donor') {
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary" href="#">AI Blood Management System | Donor</a>
+   
     <div class="collapse navbar-collapse" id="navbarNav">
+    <a class="navbar-brand fw-bold text-primary" href="#">  Donation</a>
       <ul class="navbar-nav ms-auto align-items-center">
+     
         <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home me-1"></i>Dashboard</a></li>
         <li class="nav-item"><a class="nav-link" href="appointments.php"><i class="fas fa-calendar-alt me-1"></i>Appointments</a></li>
         <li class="nav-item"><a class="nav-link" href="donation_history.php"><i class="fas fa-history me-1"></i>Donation History</a></li>
@@ -75,7 +77,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'donor') {
 
     <h5><i class="fas fa-user-check section-icon"></i>Basic Requirements</h5>
     <ul>
-      <li>Age: Typically between 17 and 65 years (varies by country and local rules).</li>
+      <li>Age: Typically between 18 and 65 years (varies by country and local rules).</li>
       <li>Weight: Usually at least 50 kg (110 lbs) — check local requirements.</li>
       <li>Identification: Bring a valid ID to the donation site.</li>
     </ul>
@@ -109,7 +111,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'donor') {
 
     <div class="mt-4 d-flex gap-3">
       <a href="eligibility_check.php" class="btn btn-primary"><i class="fas fa-check-circle me-2"></i>Run Eligibility Check</a>
-      <a href="health_info.php" class="btn btn-outline-primary"><i class="fas fa-notes-medical me-2"></i>Update Health Info</a>
+
     </div>
   </div>
 </div>

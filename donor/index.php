@@ -34,7 +34,7 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 				.sidebar { min-height: 100vh; background: #c6c6c6ff; border-right: 1px solid #e5e7eb; }
 				.sidebar .nav-link { color: #333; font-weight: 500; }
 				.sidebar .nav-link.active, .sidebar .nav-link:hover { background: #8e979fff; color: #0d6efd; }
-				.dashboard-card { border-radius: 1rem;background: #023907ad; color: #f2f0f0ff;}
+				.dashboard-card { border-radius: 1rem;background:rgba(16, 10, 39, 0.68); color: #f2f0f0ff;}
 				.quick-action-btn { border-radius: 0.75rem; font-weight: 500;background: #023907ad; color: #f2f0f0ff; }
 				.profile-card { border-radius: 1rem; background: #023907ad; color: #f2f0f0ff;}
 				.notification-icon { font-size: 1.5rem;background: #023907ad; color: #f2f0f0ff; }
@@ -115,12 +115,13 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 <!-- Top Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
 	<div class="container-fluid">
-		<a class="navbar-brand fw-bold text-primary" href="#">AI Blood Management System | Donor</a>
+		<a class="navbar-brand fw-bold text-primary" href="#"> Blood </a> 
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ms-auto align-items-center">
+			<a class="navbar-brand fw-bold text-primary" href="#">  Donor</a>
 				<li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home me-1"></i>Dashboard</a></li>
 				<li class="nav-item"><a class="nav-link" href="appointments.php"><i class="fas fa-calendar-alt me-1"></i>Appointments</a></li>
 				<li class="nav-item"><a class="nav-link" href="view_appointment.php"><i  class="fas fa-history me-1"></i>View Appointments</a></li>
@@ -200,7 +201,7 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 						<h5 class="fw-bold mb-3">Upcoming Appointments</h5>
 						<table class="table table-bordered mb-0">
 							<thead class="table-light">
-								<tr><th>Date & Time</th><th>Blood Bank</th><th>Address</th><th>Status</th><th>Actions</th></tr>
+								<tr><th>Date & Time</th><th>Blood Bank</th><th>Status</th></tr>
 							</thead>
 							<tbody>
 								<?php if ($appointments && $appointments->num_rows > 0):
@@ -208,12 +209,9 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 									<tr>
 										<td><?php echo date('M d, Y H:i', strtotime($row['appointment_date'])); ?></td>
 										<td><?php echo htmlspecialchars($row['blood_bank']); ?></td>
-										<td><?php echo htmlspecialchars($row['address']); ?></td>
+										
 										<td><span class="badge bg-<?php echo $row['status'] === 'confirmed' ? 'success' : 'warning'; ?>"><?php echo ucfirst($row['status']); ?></span></td>
-										<td>
-											<a href="#" class="btn btn-outline-info btn-sm" title="View"><i class="fas fa-eye"></i></a>
-											<a href="#" class="btn btn-outline-danger btn-sm" title="Cancel"><i class="fas fa-times"></i></a>
-										</td>
+										
 									</tr>
 								<?php endwhile; else: ?>
 									<tr><td colspan="5" class="text-center">No upcoming appointments.</td></tr>
@@ -271,7 +269,7 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 			<div class="row g-4 mb-4">
 				<div class="col-md-6">
 					<div class="card p-4">
-						<h5 class="fw-bold mb-3">AI Blood Donation Insights</h5>
+						<h5 class="fw-bold mb-3">Blood Donation Insights</h5>
 						<div class="row">
 							<div class="col-6">
 								<div class="mb-2">Your Blood Type Impact</div>
@@ -279,11 +277,9 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 							</div>
 							<div class="col-6">
 								<div class="mb-2">Suggested Donation Times</div>
-								<div class="alert alert-info p-2">Our AI suggests the following optimal donation times based on your profile and local needs:<br>
+								<div class="alert alert-info p-2">Our AI suggests the following optimal donation times based on your profile :<br>
 									<ul class="mb-0 ps-3">
-										<li>Wednesday Morning</li>
-										<li>Saturday Afternoon</li>
-										<li>Monday Evening</li>
+										
 									</ul>
 								</div>
 							</div>
@@ -323,7 +319,7 @@ $recent_donations = $conn->query("SELECT d.*, b.name as blood_bank FROM blood_do
 							<div class="col-md-3 col-6"><a href="book_appointment.php" class="btn btn-primary quick-action-btn w-100"><i class="fas fa-calendar-plus me-2"></i>Book Donation Appointment</a></div>
 							<div class="col-md-3 col-6"><a href="eligibility_check.php" class="btn btn-info quick-action-btn w-100"><i class="fas fa-check-circle me-2"></i>Check Eligibility</a></div>
 							<div class="col-md-3 col-6"><a href="donation_history.php" class="btn btn-secondary quick-action-btn w-100"><i class="fas fa-history me-2"></i>View Donation History</a></div>
-							<div class="col-md-3 col-6"><a href="health_info.php" class="btn btn-warning quick-action-btn w-100"><i class="fas fa-notes-medical me-2"></i>Update Health Info</a></div>
+							
 						</div>
 					</div>
 				</div>

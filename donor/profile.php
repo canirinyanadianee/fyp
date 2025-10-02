@@ -182,7 +182,7 @@ $values = [
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold text-primary" href="#">AI Blood Management System | Donor</a>
+        <a class="navbar-brand fw-bold text-primary" href="#"> Blood Management System | Donor</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-home me-1"></i>Dashboard</a></li>

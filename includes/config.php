@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Application Settings
-define('APP_NAME', 'AI-Powered Blood Management System');
+define('APP_NAME', 'Blood Connect');
 define('APP_VERSION', '1.0.0');
 define('BASE_URL', 'http://localhost/fyp/');
 define('ADMIN_EMAIL', 'admin@bloodbank.com');
