@@ -122,7 +122,7 @@ body.dark-mode .navbar-custom .nav-link {
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="#">
                     <i class="fas fa-tint me-2"></i>
-                    AI Blood Management System | Hospital
+                    BloodConnect | Hospital
                 </a>
                 <div class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="inventory.php">Available Inventory</a></li>

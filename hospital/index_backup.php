@@ -94,7 +94,7 @@ $page_title = "Hospital Dashboard";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $page_title; ?> - AI Blood Management System</title>
+    <title><?php echo $page_title; ?> - BloodConnect</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -260,7 +260,7 @@ $page_title = "Hospital Dashboard";
             <nav class="col-md-3 col-lg-2 sidebar">
                 <div class="p-3">
                     <h5 class="text-center mb-4">
-                        <i class="fas fa-hospital-alt"></i> AI Blood Management System | Hospital
+                        <i class="fas fa-hospital-alt"></i> BloodConnect | Hospital
                     </h5>
                     
                     <ul class="nav flex-column">

@@ -164,7 +164,7 @@ $chart_data = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Blood Management System | Hospital Dashboard</title>
+    <title>BloodConnect | Hospital Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -300,7 +300,7 @@ $chart_data = [
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="#">
                     <i class="fas fa-tint me-2"></i>
-                    AI Blood Management System | Hospital
+                    BloodConnect | Hospital
                 </a>
                 <div class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="inventory.php">Available Inventory</a></li>
