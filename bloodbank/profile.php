@@ -35,6 +35,7 @@ $user = $conn->query("SELECT * FROM users WHERE id = $user_id")->fetch_assoc();
         <tr><th>Contact Email</th><td><?php echo htmlspecialchars($bank['contact_email'] ?? ''); ?></td></tr>
         <tr><th>Login Email</th><td><?php echo htmlspecialchars($user['email'] ?? ''); ?></td></tr>
     </table>
+    <a href="edit_profile.php" class="btn btn-primary mt-4 me-2"><i class="fas fa-edit"></i> Edit Profile</a>
     <a href="index.php" class="btn btn-link mt-4"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
 </div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">

@@ -347,7 +347,15 @@ include '../includes/header.php';
                                         <tbody>
                                             <?php foreach ($pendingTransfers as $transfer): ?>
                                             <tr>
-                                                <td><?php echo date('M d, Y', strtotime($transfer['request_date'])); ?></td>
+                                                <td>
+                                                    <?php
+                                                    if (!empty($transfer['request_date'])) {
+                                                        echo date('M d, Y', strtotime($transfer['request_date']));
+                                                    } else {
+                                                        echo '<span class="text-muted">N/A</span>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td><?php echo htmlspecialchars($transfer['hospital_name']); ?></td>
                                                 <td><?php echo htmlspecialchars($transfer['blood_type']); ?></td>
                                                 <td><?php echo $transfer['quantity_ml']; ?></td>

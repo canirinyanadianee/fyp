@@ -192,13 +192,6 @@ include __DIR__ . '/../includes/header.php';
                     <i class="fas fa-times me-1"></i>Reject
                   </button>
                 </form>
-                <form method="post" class="d-inline ms-1">
-                  <input type="hidden" name="id" value="<?php echo (int)$n['id']; ?>">
-                  <input type="hidden" name="action" value="mark_sent">
-                  <button class="btn btn-sm btn-primary">
-                    <i class="fas fa-paper-plane me-1"></i>Mark Sent
-                  </button>
-                </form>
               </td>
             </tr>
           <?php endwhile; ?>

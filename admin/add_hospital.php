@@ -47,9 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $generatedPassword = bin2hex(random_bytes(4)); // 8 hex chars
             $hash = password_hash($generatedPassword, PASSWORD_BCRYPT);
 
-            $columns = ['email','password','role'];
-            $placeholders = ['?','?','?'];
-            $values = [$email, $hash, 'hospital'];
+            // Generate a unique username for hospital user
+            $username = $email ? $email : strtolower(str_replace(' ', '', $name)) . rand(100,999);
+            $columns = ['username','email','password','role'];
+            $placeholders = ['?','?','?','?'];
+            $values = [$username, $email, $hash, 'hospital'];
             if ($hasIsActive) { $columns[]='is_active'; $placeholders[]='?'; $values[] = 1; }
             if ($hasStatus) { $columns[]='status'; $placeholders[]='?'; $values[] = 'active'; }
 

@@ -201,15 +201,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         
                         <hr class="my-4">
-                        
-                        <div class="text-center">
-                            <small class="text-muted">
-                                <strong>Demo Accounts:</strong><br>
-                                Admin: admin / admin123<br>
-                                Hospital: hospital1 / admin123<br>
-                                Blood Bank: bloodbank1 / admin123
-                            </small>
-                        </div>
                     </div>
                 </div>
             </div>
